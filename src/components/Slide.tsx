@@ -1,7 +1,7 @@
 import "./slide.css";
-import React, { useRef, useEffect, useState, useContext } from "react";
-import { findDOMNode } from "react-dom";
-import * as screenfull from "screenfull";
+import React, { useRef, useContext } from "react";
+// import { findDOMNode } from "react-dom";
+// import * as screenfull from "screenfull";
 import * as ReactPlayer from "react-player";
 import { ISlide, EMediaType, EActionType } from "../actions";
 import { DispatchContext } from "../context/slider.context";
@@ -55,21 +55,23 @@ const Slide = (props: SlideProps) => {
   );
 
   const handleDuration = (duration: number) => {
-    console.log("video Duration", duration);
-    dispatch({
-      type: EActionType.UPDATE_SLIDE,
-      payload: {
-        id: props.id,
-        data: {
-          displayDuration: duration
+    if (duration && !props.displayDuration) {
+      console.log("set Video duration", duration);
+      dispatch({
+        type: EActionType.UPDATE_SLIDE,
+        payload: {
+          id: props.id,
+          data: {
+            displayDuration: duration
+          }
         }
-      }
-    });
+      });
+    }
   };
   const handleEnded = () => {
-    console.log("onEnded");
     //setState({ playing: state.loop });
     if (props.playing) {
+      console.log("Video stopped... ");
       dispatch({
         type: EActionType.UPDATE_SLIDE,
         payload: {

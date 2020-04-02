@@ -94,8 +94,6 @@ const Slider = () => {
     // Create an array of the previous last slide, and the next two slides that follow it.
     else _slides = slides.slice(activeSlide - 1, activeSlide + 2);
 
-    //console.log(_slides);
-
     setState({
       ...state,
       _slides,
@@ -116,24 +114,38 @@ const Slider = () => {
     const { displayDuration, mediaType, id, playing } = slides[
       state.activeSlide
     ];
+
     const d = new Date();
     console.log("seconds at:", d.getSeconds());
-    console.log(`Slide[${mediaType}] duration in sec:[${displayDuration}]`);
+    console.log(
+      `Current Active Slide[${id}] Type[${mediaType}] duration in sec:[${displayDuration}]`
+    );
     let timeOutRef: any;
     if (displayDuration) {
-      timeOutRef = setTimeout(() => {
-        autoPlayRef.current();
-      }, displayDuration * 1000);
-      if (mediaType === EMediaType.VEDIO && !playing) {
-        dispatch({
-          type: EActionType.UPDATE_SLIDE,
-          payload: {
-            id,
-            data: {
-              playing: true
+      if (mediaType === EMediaType.VEDIO) {
+        if (!playing) {
+          // request the video play
+          dispatch({
+            type: EActionType.UPDATE_SLIDE,
+            payload: {
+              id,
+              data: {
+                playing: true
+              }
             }
-          }
-        });
+          });
+        } else {
+          // viedo is playing
+          timeOutRef = setTimeout(() => {
+            // play the next slide
+            autoPlayRef.current();
+          }, displayDuration * 1000);
+        }
+      } else {
+        timeOutRef = setTimeout(() => {
+          // play the next slide
+          autoPlayRef.current();
+        }, displayDuration * 1000);
       }
     }
     return () => {

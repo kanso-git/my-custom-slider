@@ -37,6 +37,13 @@ const defaultSlides: IState = [
       "https://images.unsplash.com/photo-1449034446853-66c86144b0ad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80",
     displayDuration: 5,
     mediaType: EMediaType.IMAGE
+  },
+  {
+    id: "Six slide",
+    src: "http://localhost:4400/assets/videos/metaxas-keller-Bell.mp4",
+    mediaType: EMediaType.VEDIO,
+    volume: 0.1,
+    playing: false
   }
 ];
 //export const SliderContext = createContext<Partial<IState>>([]);
