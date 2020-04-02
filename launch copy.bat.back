@@ -1,0 +1,7 @@
+
+@echo off
+cd /d "C:\Program Files\Mozilla Firefox"
+start firefox.exe  --kiosk "http://localhost:3000/"
+timeout 10
+
+pause
