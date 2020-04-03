@@ -14,6 +14,7 @@ const Slider = () => {
   const secondSlide = slides[1];
   const lastSlide = slides[slides.length - 1];
 
+  const [timeoutId, setTimeoutId] = useState<string>();
   const [state, setState] = useState({
     activeSlide: 0,
     translate: getWidth(),
@@ -76,7 +77,7 @@ const Slider = () => {
 
   // see the original video https://www.youtube.com/watch?time_continue=17&v=0lPOnnOdP-s&feature=emb_logo
   useEffect(() => {
-    if (transition === 0) setState({ ...state, transition: 0.45 });
+    if (transition === 0) setState({ ...state, transition: 0.75 }); // was 0.45 before
   }, [transition, state]);
 
   const handleResize = () => {
@@ -111,47 +112,49 @@ const Slider = () => {
   };
 
   useEffect(() => {
-    const { displayDuration, mediaType, id, playing } = slides[
+    const { displayDuration, mediaType, id, playing, ended } = slides[
       state.activeSlide
     ];
-
-    const d = new Date();
-    console.log("seconds at:", d.getSeconds());
     console.log(
-      `Current Active Slide[${id}] Type[${mediaType}] duration in sec:[${displayDuration}]`
+      `Current Active Slide[${id}] 
+     Type[${mediaType}] 
+     Playing[${playing}]
+     Ended[${ended}]
+     duration in sec:[${displayDuration}]`
     );
-    let timeOutRef: any;
     if (displayDuration) {
-      if (mediaType === EMediaType.VEDIO) {
-        if (!playing) {
-          // request the video play
+      if (mediaType === EMediaType.IMAGE) {
+        if (!timeoutId || timeoutId !== id) {
+          console.log("Set timeout image ............");
+          setTimeout(() => {
+            console.log("Consume timeout image ............");
+            // play the next slide
+            autoPlayRef.current();
+          }, displayDuration * 1000);
+          setTimeoutId(id);
+        }
+      } else if (mediaType === EMediaType.VEDIO) {
+        // request the video play
+        if (!timeoutId || timeoutId !== id) {
+          setTimeoutId(id);
           dispatch({
             type: EActionType.UPDATE_SLIDE,
             payload: {
               id,
               data: {
-                playing: true
+                playing: true,
+                ended: false
               }
             }
           });
         } else {
-          // viedo is playing
-          timeOutRef = setTimeout(() => {
-            // play the next slide
+          if (!playing && ended) {
             autoPlayRef.current();
-          }, displayDuration * 1000);
+          }
         }
-      } else {
-        timeOutRef = setTimeout(() => {
-          // play the next slide
-          autoPlayRef.current();
-        }, displayDuration * 1000);
       }
     }
-    return () => {
-      if (timeOutRef) clearTimeout(timeOutRef);
-    };
-  }, [state.activeSlide, slides, dispatch]);
+  }, [state.activeSlide, slides, dispatch, timeoutId]);
 
   return (
     <div

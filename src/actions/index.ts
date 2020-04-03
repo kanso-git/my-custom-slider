@@ -22,6 +22,7 @@ export interface ISlide {
   mediaType: EMediaType;
   volume?: number;
   playing?: boolean;
+  ended?: boolean;
 }
 
 export type IState = ISlide[];

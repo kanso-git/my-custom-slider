@@ -77,7 +77,8 @@ const Slide = (props: SlideProps) => {
         payload: {
           id: props.id,
           data: {
-            playing: false
+            playing: false,
+            ended: true
           }
         }
       });

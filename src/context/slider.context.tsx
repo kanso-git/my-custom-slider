@@ -7,28 +7,28 @@ const defaultSlides: IState = [
     id: "First slide",
     src:
       "https://images.unsplash.com/photo-1470341223622-1019832be824?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2288&q=80",
-    displayDuration: 1,
+    displayDuration: 3,
     mediaType: EMediaType.IMAGE
   },
   {
     id: "Second slide",
-    src: "http://localhost:4400/assets/videos/Panasonic_HDC_TM_700_P_50i.mp4",
+    src: "http://localhost:4400/assets/videos/magic_kingdom.mp4",
     mediaType: EMediaType.VEDIO,
-    volume: 0.8,
+    volume: 0.01,
     playing: false
   },
   {
     id: "Third slide",
     src:
       "https://images.unsplash.com/photo-1448630360428-65456885c650?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2094&q=80",
-    displayDuration: 2,
+    displayDuration: 6,
     mediaType: EMediaType.IMAGE
   },
   {
     id: "Fourth slide",
     src:
       "https://images.unsplash.com/photo-1534161308652-fdfcf10f62c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2174&q=80",
-    displayDuration: 2,
+    displayDuration: 6,
     mediaType: EMediaType.IMAGE
   },
   {
@@ -40,7 +40,8 @@ const defaultSlides: IState = [
   },
   {
     id: "Six slide",
-    src: "http://localhost:4400/assets/videos/metaxas-keller-Bell.mp4",
+    src:
+      "http://localhost:4400/assets/videos/eugenia_loli--golden_gate_bridge_timelapse.mp4",
     mediaType: EMediaType.VEDIO,
     volume: 0.1,
     playing: false
